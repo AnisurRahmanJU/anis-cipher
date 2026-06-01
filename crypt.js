@@ -1,23 +1,30 @@
+/**
+ * crypt.js
+ * Full implementation of Consecutive Square Differences Cryptography
+ * Source Data: Md. Anisur Rahman & Dr. Salekul Islam (UIU)
+ */
+
 // Helper to convert character code to index (A=0, B=1... Z=25)
 function mapToNum(char) {
     return char.charCodeAt(0) - 65;
 }
 
-// Helper to convert index (0-25) back to Character
+// Helper to convert index (0-25) back to Character safely
 function mapToChar(num) {
-    return String.fromCharCode(num + 65);
+    if (num < 0) num = 0; 
+    return String.fromCharCode((num % 26) + 65);
 }
 
-// Global Delimiter Token outlined in Section IV-C
+// The carat token used directly as the exponent separator string
 const DELIMITER = "^"; 
 
 /**
  * Encryption Loop (Algorithm 1)
+ * Input: Plaintext String, Integer Key
  */
 function encrypt(plaintext, key) {
     if (!plaintext || isNaN(key) || key <= 0) return "Please enter valid text and a positive key.";
     
-    // Normalize input data for standard base-26 matching text
     let upperText = plaintext.toUpperCase();
     let tokens = [];
 
@@ -30,49 +37,52 @@ function encrypt(plaintext, key) {
             continue;
         }
 
-        let P = mapToNum(char);         // Plaintext matching ID (0-25)
-        let Pk = P * key;               // State expansion
+        let P = mapToNum(char);         // Plaintext character code P (A=0, Z=25)
+        let Pk = P * key;               // State expansion parameter P_k = P x K
         
-        // Consecutive Square Difference property validation
+        // Consecutive Square Difference: Diff = (P_k)^2 - (P_k - 1)^2
         let Diff = Math.pow(Pk, 2) - Math.pow(Pk - 1, 2); 
 
+        // If difference fits within standard alphabet block space
         if (Diff < 26) {
-            let cipherTextValue = Diff;
-            tokens.push(mapToChar(cipherTextValue));
+            tokens.push(mapToChar(Diff)); 
         } else {
-            let remainder = Diff % 26;
-            let quotient = Math.floor(Diff / 26);
-            let valChar = mapToChar(remainder);
+            // Dynamic handling of overflows via quotient-remainder
+            let remainder = Diff % 26; 
+            let quotient = Math.floor(Diff / 26); 
+            let valChar = mapToChar(remainder); 
             
-            // Digit expansion rules to safeguard overflow boundaries
+            // Decompose quotient into individual numerical digits
             let quotientStr = quotient.toString();
             let powerString = "";
+            
             for (let digit of quotientStr) {
-                let digitNum = parseInt(digit);
-                powerString += mapToChar(digitNum);
+                let digitNum = parseInt(digit); 
+                powerString += mapToChar(digitNum); // 0 cleanly becomes A, 1 becomes B, etc.
             }
             
+            // Compile final token format (ValChar + ^ + PowerString)
             tokens.push(valChar + DELIMITER + powerString);
         }
     }
-    // Joining tokens with a clean space delimiter if token strings are long strings
+    // Separate tokens cleanly with a space to parse correctly during recovery
     return tokens.join(" ");
 }
 
 /**
  * Decryption Loop (Algorithm 2)
+ * Input: Ciphertext Token String, Integer Key
  */
 function decrypt(ciphertext, key) {
     if (!ciphertext || isNaN(key) || key <= 0) return "Please enter valid text and a positive key.";
     
-    // Split combined space-separated tokens
     let tokens = ciphertext.trim().split(" ");
     let recoveredText = "";
 
     for (let token of tokens) {
         if (!token) continue;
 
-        // Pass spaces or unique strings that do not follow base-26 structural maps
+        // Skip spaces or plain punctuation marks
         if (token.length === 1 && (token < 'A' || token > 'Z')) {
             recoveredText += token;
             continue;
@@ -80,29 +90,31 @@ function decrypt(ciphertext, key) {
 
         let Diff = 0;
 
-        if (token.includes(DELIMITER)) {
-            // Split token into ValChar component and the Digitized PowerString exponent
+        // Check for the exponent indicator delimiter "^"
+        if (token.includes(DELIMITER) && token.length > 1) {
+            // Split token into components
             let parts = token.split(DELIMITER);
             let valChar = parts[0];
             let powerString = parts[1];
 
-            let remainder = mapToNum(valChar);
+            let remainder = mapToNum(valChar); 
             let quotientStr = "";
             
+            // Convert character digits back to numeric strings
             for (let char of powerString) {
-                let digitNum = mapToNum(char);
+                let digitNum = mapToNum(char); 
                 quotientStr += digitNum.toString();
             }
             
-            let quotient = parseInt(quotientStr);
-            Diff = (26 * quotient) + remainder;
+            let quotient = parseInt(quotientStr); 
+            Diff = (26 * quotient) + remainder; // Reconstruct original difference
         } else {
-            Diff = mapToNum(token);
+            Diff = mapToNum(token); // Direct mapping if no overflow token was created
         }
 
-        // Reversing structural arithmetic maps
+        // Reversing structural arithmetic maps to find internal state P_k
         let Pk = (Diff + 1) / 2;
-        let P = Pk / key;
+        let P = Pk / key; // Extract original character index P
 
         recoveredText += mapToChar(Math.round(P));
     }
@@ -110,7 +122,7 @@ function decrypt(ciphertext, key) {
     return recoveredText;
 }
 
-// DOM Setup Connections
+// Attach event tracking hooks when DOM fully compiles
 document.addEventListener("DOMContentLoaded", () => {
     const messageInput = document.getElementById("messageInput");
     const keyInput = document.getElementById("keyInput");
@@ -121,16 +133,14 @@ document.addEventListener("DOMContentLoaded", () => {
     encryptBtn.addEventListener("click", () => {
         let text = messageInput.value;
         let key = parseInt(keyInput.value);
-        let result = encrypt(text, key);
-        outputMessage.textContent = result;
+        outputMessage.textContent = encrypt(text, key);
         outputMessage.classList.remove("placeholder-text");
     });
 
     decryptBtn.addEventListener("click", () => {
         let text = messageInput.value;
         let key = parseInt(keyInput.value);
-        let result = decrypt(text, key);
-        outputMessage.textContent = result;
+        outputMessage.textContent = decrypt(text, key);
         outputMessage.classList.remove("placeholder-text");
     });
 });
