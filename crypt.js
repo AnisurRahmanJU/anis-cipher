@@ -1,8 +1,4 @@
-/**
- * crypt.js
- * Full implementation of Consecutive Square Differences Cryptography
- * Source Data: Md. Anisur Rahman & Dr. Salekul Islam (UIU)
- */
+
 
 // Helper to convert character code to index (A=0, B=1... Z=25)
 function mapToNum(char) {
