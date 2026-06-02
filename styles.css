@@ -1,5 +1,7 @@
+/* ==========================================================================
+   HYPER-REALISTIC ENIGMA CHASSIS & KEYBOARD - WITH BALANCED OPERATOR KEY
+   ========================================================================== */
 
-/* Dark mahogany workbench environmental backlighting */
 body {
     font-family: 'Courier New', Courier, monospace;
     background: radial-gradient(circle at 50% 30%, #252a30 0%, #0a0c0e 100%);
@@ -13,7 +15,6 @@ body {
     box-sizing: border-box;
 }
 
-/* Reinforced Oak Transport Casing */
 .container {
     background: linear-gradient(135deg, #2b1d14 0%, #140d09 100%);
     border: 12px solid #0f0a07;
@@ -24,19 +25,13 @@ body {
     max-width: 580px;
     box-sizing: border-box;
     position: relative;
-    box-shadow: 
-        0 30px 70px rgba(0, 0, 0, 0.95), 
-        inset 0 0 50px rgba(0, 0, 0, 0.9);
+    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.95), inset 0 0 50px rgba(0, 0, 0, 0.9);
 }
 
 @media (min-width: 480px) {
-    .container {
-        border-width: 16px;
-        padding: 30px;
-    }
+    .container { border-width: 16px; padding: 30px; }
 }
 
-/* Internal Matte-Black Iron Faceplate Texture */
 .container::after {
     content: '';
     position: absolute;
@@ -48,12 +43,8 @@ body {
     box-shadow: inset 0 1px 6px rgba(255, 255, 255, 0.05);
 }
 
-.container * {
-    position: relative;
-    z-index: 2;
-}
+.container * { position: relative; z-index: 2; }
 
-/* Machine Title Graphics */
 h2 {
     margin-top: 0;
     font-size: 1.1rem;
@@ -68,10 +59,7 @@ h2 {
 }
 
 @media (min-width: 480px) {
-    h2 {
-        font-size: 1.2rem;
-        letter-spacing: 2.5px;
-    }
+    h2 { font-size: 1.2rem; letter-spacing: 2.5px; }
 }
 
 .subtitle {
@@ -83,16 +71,9 @@ h2 {
     word-break: break-word;
 }
 
-.subtitle a {
-    color: #4b5363;
-    text-decoration: none;
-}
+.subtitle a { color: #4b5363; text-decoration: none; }
+.subtitle a:hover { color: #dfa15a; }
 
-.subtitle a:hover {
-    color: #dfa15a;
-}
-
-/* Sunken Component Wells */
 .form-group {
     margin-bottom: 20px;
     background: #0f1115;
@@ -100,8 +81,8 @@ h2 {
     border-radius: 4px;
     border-top: 2px solid #060709;
     border-left: 2px solid #060709;
-    border-right: 2px solid #222731;
-    border-bottom: 2px solid #222731;
+    border-right: 2px solid #1f242d;
+    border-bottom: 2px solid #1f242d;
     box-shadow: inset 0 5px 12px rgba(0, 0, 0, 0.85);
 }
 
@@ -116,7 +97,6 @@ label, .panel-tag {
     text-shadow: -1px -1px 0 #000;
 }
 
-/* CRT Terminal Display Window */
 textarea {
     width: 100%;
     height: 95px;
@@ -134,12 +114,10 @@ textarea {
     text-shadow: 0 0 5px rgba(61, 245, 98, 0.5);
 }
 
-textarea:focus {
-    outline: none;
-}
+textarea:focus { outline: none; }
 
 /* ==========================================================================
-   DYNAMIC RESPONSIVE ENIGMA KEYBOARD PANEL WITH SPACE BAR
+   DYNAMIC RESPONSIVE KEYBOARD FIELD MODULE
    ========================================================================== */
 .enigma-keyboard-panel {
     background: #111317;
@@ -158,10 +136,7 @@ textarea:focus {
 }
 
 @media (min-width: 480px) {
-    .enigma-keyboard-panel {
-        padding: 20px 10px;
-        gap: 14px;
-    }
+    .enigma-keyboard-panel { padding: 20px 10px; gap: 14px; }
 }
 
 .keyboard-row {
@@ -173,31 +148,27 @@ textarea:focus {
 }
 
 @media (min-width: 480px) {
-    .keyboard-row {
-        justify-content: center;
-        gap: 10px;
-    }
+    .keyboard-row { justify-content: center; gap: 10px; }
 }
 
-/* Stagger alignments adjust proportionally */
 .row-stagger-1 { padding-left: 3%; padding-right: 3%; }
-.row-stagger-2 { padding-left: 6%; padding-right: 6%; }
+.row-stagger-2 { padding-left: 1%; padding-right: 1%; }
 
 @media (min-width: 480px) {
     .row-stagger-1 { padding-left: 15px; padding-right: 0; }
-    .row-stagger-2 { padding-left: 30px; padding-right: 0; }
+    .row-stagger-2 { padding-left: 15px; padding-right: 0; }
 }
 
-/* Base Structural Rules for Keyboard Actuation Devices */
+/* Base Structural Rules for Keys */
 .key {
-    flex: 0 1 calc(11% - 4px);
+    flex: 0 1 calc(10% - 4px);
     aspect-ratio: 1 / 1;
     max-width: 42px;
     max-height: 42px;
-    min-width: 26px;
+    min-width: 24px;
     background: linear-gradient(180deg, #2d323b 0%, #15181c 100%);
     color: #d1d5db;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     font-weight: 900;
     display: flex;
     align-items: center;
@@ -205,11 +176,8 @@ textarea:focus {
     border-radius: 50%;
     cursor: pointer;
     user-select: none;
-    border: 2.5px solid #474f5d; /* Structural Steel Collar */
-    box-shadow: 
-        0 4px 0 #090a0c, 
-        0 6px 8px rgba(0, 0, 0, 0.6),
-        inset 0 1px 2px rgba(255, 255, 255, 0.15);
+    border: 2.5px solid #474f5d;
+    box-shadow: 0 4px 0 #090a0c, 0 6px 8px rgba(0, 0, 0, 0.6), inset 0 1px 2px rgba(255, 255, 255, 0.15);
     text-shadow: -1px -1px 0 #000;
     box-sizing: border-box;
     transition: transform 0.05s ease, box-shadow 0.05s ease;
@@ -217,202 +185,105 @@ textarea:focus {
 
 @media (min-width: 480px) {
     .key {
-        font-size: 1.1rem;
-        border-width: 3.5px;
-        box-shadow: 
-            0 5px 0 #090a0c, 
-            0 8px 10px rgba(0, 0, 0, 0.6),
-            inset 0 1px 2px rgba(255, 255, 255, 0.15);
+        font-size: 1.1rem; border-width: 3.5px;
+        box-shadow: 0 5px 0 #090a0c, 0 8px 10px rgba(0, 0, 0, 0.6), inset 0 1px 2px rgba(255, 255, 255, 0.15);
     }
 }
 
-/* Mechanical Space Bar Modifications & Absolute Centering Control */
+/* Red Backspace Modification */
+.key.delete-key {
+    border-color: #8c3232;
+    background: linear-gradient(180deg, #4c2222 0%, #260f0f 100%);
+    color: #ff6b6b;
+}
+
+/* Centered Double Operational Bar Configuration */
 .space-row {
     margin-top: 4px;
-    justify-content: center !important; /* Guarantees absolute centering across all dimensions */
-    padding: 0 !important; /* Clears row staggers inherited from parents */
+    justify-content: center !important;
+    padding: 0 !important;
+    gap: 8px !important;
 }
 
 .key.space-key {
-    flex: 0 1 65%; /* Constrained scaling ratio relative to letter rows */
-    max-width: 280px;
-    aspect-ratio: auto; /* Drops perfect 1:1 round locking */
-    height: 32px;
-    border-radius: 6px; /* Heavy uniform bakelite slab border curve */
+    flex: 0 1 50%;
+    max-width: 220px;
+    aspect-ratio: auto;
+    height: 34px;
+    border-radius: 6px;
     font-size: 0.75rem;
     letter-spacing: 2px;
     color: #8a939e;
 }
 
+/* Industrial Red Clear Matrix Button Styles */
+.key.clear-key {
+    flex: 0 1 25%;
+    max-width: 100px;
+    aspect-ratio: auto;
+    height: 34px;
+    border-radius: 6px;
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+    border-color: #992b2b;
+    background: linear-gradient(180deg, #661a1a 0%, #330b0b 100%);
+    color: #ff9999;
+    text-shadow: 0 0 4px rgba(255, 0, 0, 0.4);
+}
+
 @media (min-width: 480px) {
-    .key.space-key {
-        height: 38px;
-        font-size: 0.85rem;
-    }
+    .key.space-key, .key.clear-key { height: 38px; font-size: 0.85rem; }
 }
 
 /* Mechanical compression when pressed */
 .key:active, .key.pressed {
     transform: translateY(3px);
-    box-shadow: 
-        0 1px 0 #090a0c, 
-        0 2px 4px rgba(0, 0, 0, 0.7),
-        inset 0 2px 4px rgba(0, 0, 0, 0.6);
-    background: linear-gradient(180deg, #15181c 0%, #0d0f11 100%);
+    box-shadow: 0 1px 0 #090a0c, 0 2px 4px rgba(0, 0, 0, 0.7), inset 0 2px 4px rgba(0, 0, 0, 0.6);
 }
+
+.key:active, .key.pressed { background: linear-gradient(180deg, #15181c 0%, #0d0f11 100%); }
+.key.delete-key:active, .key.delete-key.pressed { background: linear-gradient(180deg, #260f0f 0%, #150808 100%); }
+.key.clear-key:active, .key.clear-key.pressed { background: linear-gradient(180deg, #330b0b 0%, #1a0505 100%); }
 
 @media (min-width: 480px) {
     .key:active, .key.pressed {
         transform: translateY(4px);
-        box-shadow: 
-            0 1px 0 #090a0c, 
-            0 3px 5px rgba(0, 0, 0, 0.7),
-            inset 0 2px 4px rgba(0, 0, 0, 0.6);
+        box-shadow: 0 1px 0 #090a0c, 0 3px 5px rgba(0, 0, 0, 0.7), inset 0 2px 4px rgba(0, 0, 0, 0.6);
     }
 }
 
 /* ==========================================================================
    ROTOR MODIFIERS & CONTROL OPERATORS
    ========================================================================== */
-.key-selection-group {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-/* Curved Rotor Window Slot */
-.rotor-drum-wrapper {
-    background: #000;
-    padding: 4px;
-    border-radius: 4px;
-    box-shadow: 0 2px 5px rgba(255,255,255,0.05);
-    display: inline-block;
-}
+.key-selection-group { display: flex; justify-content: space-between; align-items: center; }
+.rotor-drum-wrapper { background: #000; padding: 4px; border-radius: 4px; box-shadow: 0 2px 5px rgba(255,255,255,0.05); display: inline-block; }
 
 input[type="number"] {
     width: 80px;
     height: 42px;
     background: linear-gradient(0deg, #121418 0%, #e2e8f0 45%, #ffffff 55%, #121418 100%);
-    border-left: 4px solid #000;
-    border-right: 4px solid #000;
-    border-top: 1px solid #000;
-    border-bottom: 1px solid #000;
-    color: #0f1115;
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 1.5rem;
-    font-weight: 900;
-    text-align: center;
-    border-radius: 2px;
-    outline: none;
+    border-left: 4px solid #000; border-right: 4px solid #000; border-top: 1px solid #000; border-bottom: 1px solid #000;
+    color: #0f1115; font-family: 'Courier New', Courier, monospace; font-size: 1.5rem; font-weight: 900; text-align: center; border-radius: 2px; outline: none;
 }
 
-input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
 
-/* Main Activation Bar Controls */
-.button-group {
-    display: flex;
-    gap: 15px;
-    margin-bottom: 25px;
-}
+.button-group { display: flex; gap: 15px; margin-bottom: 25px; }
+.btn { flex: 1; padding: 14px; font-family: 'Courier New', Courier, monospace; font-size: 0.9rem; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; border-radius: 30px; cursor: pointer; box-sizing: border-box; border: 3.5px solid #3b4252; }
+@media (min-width: 480px) { .btn { font-size: 1rem; } }
 
-.btn {
-    flex: 1;
-    padding: 14px;
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 0.9rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    border-radius: 30px;
-    cursor: pointer;
-    box-sizing: border-box;
-    border: 3.5px solid #3b4252;
-}
-
-@media (min-width: 480px) {
-    .btn {
-        font-size: 1rem;
-    }
-}
-
-.btn-encrypt {
-    background: linear-gradient(180deg, #3b4252 0%, #242933 100%);
-    color: #e5e9f0;
-    box-shadow: 0 5px 0 #0b0d11, 0 8px 12px rgba(0,0,0,0.5);
-}
-
-.btn-encrypt:active {
-    transform: translateY(4px);
-    box-shadow: 0 1px 0 #0b0d11, 0 3px 5px rgba(0,0,0,0.5);
-}
-
-.btn-decrypt {
-    background: linear-gradient(180deg, #703333 0%, #3b1818 100%);
-    color: #dfa15a;
-    border-color: #8c3f3f;
-    box-shadow: 0 5px 0 #1f0b0b, 0 8px 12px rgba(0,0,0,0.5);
-}
-
-.btn-decrypt:active {
-    transform: translateY(4px);
-    box-shadow: 0 1px 0 #1f0b0b, 0 3px 5px rgba(0,0,0,0.5);
-}
+.btn-encrypt { background: linear-gradient(180deg, #3b4252 0%, #242933 100%); color: #e5e9f0; box-shadow: 0 5px 0 #0b0d11, 0 8px 12px rgba(0,0,0,0.5); }
+.btn-encrypt:active { transform: translateY(4px); box-shadow: 0 1px 0 #0b0d11, 0 3px 5px rgba(0,0,0,0.5); }
+.btn-decrypt { background: linear-gradient(180deg, #703333 0%, #3b1818 100%); color: #dfa15a; border-color: #8c3f3f; box-shadow: 0 5px 0 #1f0b0b, 0 8px 12px rgba(0,0,0,0.5); }
+.btn-decrypt:active { transform: translateY(4px); box-shadow: 0 1px 0 #1f0b0b, 0 3px 5px rgba(0,0,0,0.5); }
 
 /* ==========================================================================
    GLÜHLAMPENFELD (OUTPUT BOX)
    ========================================================================== */
-.output-box {
-    background-color: #050608;
-    border-top: 2px solid #020304;
-    border-left: 2px solid #020304;
-    border-right: 2px solid #1a1e24;
-    border-bottom: 2px solid #1a1e24;
-    padding: 20px;
-    border-radius: 3px;
-    box-shadow: inset 0 0 20px rgba(0,0,0,1);
-}
+.output-box { background-color: #050608; border-top: 2px solid #020304; border-left: 2px solid #020304; border-right: 2px solid #1a1e24; border-bottom: 2px solid #1a1e24; padding: 20px; border-radius: 3px; box-shadow: inset 0 0 20px rgba(0,0,0,1); }
+.output-box h3 { margin-top: 0; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: #4b5363; border-bottom: 1px dashed #16191e; padding-bottom: 6px; margin-bottom: 12px; }
+#outputMessage { word-wrap: break-word; white-space: pre-wrap; font-family: 'Courier New', Courier, monospace; font-size: 1.1rem; font-weight: 900; color: #dfa15a; text-shadow: 0 0 10px #dfa15a, 0 0 3px #bf616a; letter-spacing: 2px; }
+@media (min-width: 480px) { #outputMessage { font-size: 1.3rem; } }
 
-.output-box h3 {
-    margin-top: 0;
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    color: #4b5363;
-    border-bottom: 1px dashed #16191e;
-    padding-bottom: 6px;
-    margin-bottom: 12px;
-}
-
-#outputMessage {
-    word-wrap: break-word;
-    white-space: pre-wrap;
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 1.1rem;
-    font-weight: 900;
-    color: #dfa15a;
-    text-shadow: 0 0 10px #dfa15a, 0 0 3px #bf616a;
-    letter-spacing: 2px;
-}
-
-@media (min-width: 480px) {
-    #outputMessage {
-        font-size: 1.3rem;
-    }
-}
-
-.placeholder-text {
-    color: #1a1e24 !important;
-    font-style: normal;
-    text-transform: uppercase;
-    text-shadow: none !important;
-    font-size: 0.85rem !important;
-}
-
-@media (min-width: 480px) {
-    .placeholder-text {
-        font-size: 0.95rem !important;
-    }
-}
+.placeholder-text { color: #1a1e24 !important; font-style: normal; text-transform: uppercase; text-shadow: none !important; font-size: 0.85rem !important; }
+@media (min-width: 480px) { .placeholder-text { font-size: 0.95rem !important; } }
