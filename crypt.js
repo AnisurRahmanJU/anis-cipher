@@ -32,7 +32,13 @@ function encrypt(plaintext, key) {
         
         // Preserve spaces and special characters seamlessly
         if (char < 'A' || char > 'Z') {
-            tokens.push(char);
+            if (char === ' ') {
+                // শব্দের মাঝের খালি স্পেসকে ডাবল স্পেস ট্র্যাকিংয়ের জন্য একটি অতিরিক্ত স্পেস হিসেবে রাখা হলো
+                // join(" ") করার পর এটি নিখুঁত ব্ল্যাংক স্পেস হিসেবেই আউটপুট দেবে
+                tokens.push(""); 
+            } else {
+                tokens.push(char);
+            }
             continue;
         }
 
@@ -64,7 +70,7 @@ function encrypt(plaintext, key) {
             tokens.push(valChar + DELIMITER + powerString);
         }
     }
-    // Separate tokens cleanly with a space to parse correctly during recovery
+    // শুধুমাত্র সাধারণ সিঙ্গেল ব্ল্যাংক স্পেস দিয়ে টোকেনগুলো যুক্ত হবে
     return tokens.join(" ");
 }
 
@@ -75,13 +81,26 @@ function encrypt(plaintext, key) {
 function decrypt(ciphertext, key) {
     if (!ciphertext || isNaN(key) || key <= 0) return "Please enter valid text and a positive key.";
     
-    let tokens = ciphertext.trim().split(" ");
+    // সাইফারটেক্সটকে সিঙ্গেল স্পেস দিয়ে আলাদা করা হচ্ছে
+    let tokens = ciphertext.split(" ");
     let recoveredText = "";
+    let isPrevSpace = false;
 
-    for (let token of tokens) {
-        if (!token) continue;
+    for (let i = 0; i < tokens.length; i++) {
+        let token = tokens[i];
 
-        // Skip spaces or plain punctuation marks
+        // যদি টোকেনটি খালি হয় (ডাবল স্পেসের কারণে), তার মানে এটি শব্দের মাঝের ফাকা স্পেস
+        if (token === "") {
+            if (!isPrevSpace) {
+                recoveredText += " ";
+                isPrevSpace = true;
+            }
+            continue;
+        }
+
+        isPrevSpace = false;
+
+        // Skip plain punctuation marks
         if (token.length === 1 && (token < 'A' || token > 'Z')) {
             recoveredText += token;
             continue;
@@ -118,7 +137,7 @@ function decrypt(ciphertext, key) {
         recoveredText += mapToChar(Math.round(P));
     }
 
-    return recoveredText;
+    return recoveredText.trim();
 }
 
 // Attach event tracking hooks when DOM fully compiles
