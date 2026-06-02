@@ -205,51 +205,42 @@ document.addEventListener("DOMContentLoaded", () => {
 document.addEventListener("DOMContentLoaded", function () {
     const messageInput = document.getElementById("messageInput");
     const outputMessage = document.getElementById("outputMessage");
-    const clearBtn = document.getElementById("clearBtn");
-    const virtualKeys = document.querySelectorAll(".key");
+    const keyboardPanel = document.querySelector(".enigma-keyboard-panel");
 
-    // 1. CLEAR Terminal Module
-    if (clearBtn) {
-        clearBtn.addEventListener("click", function (e) {
-            // Prevent the click event from bubbling up to other key listeners
-            e.stopPropagation();
-            
-            // Wipe data values cleanly
-            messageInput.value = "";
-            
-            // Revert output container states
-            outputMessage.textContent = "Your processed message output will appear here.";
-            outputMessage.classList.add("placeholder-text");
-            
-            messageInput.focus();
-        });
-    }
+    // Unified Input & Control Handler using Event Delegation
+    if (keyboardPanel) {
+        keyboardPanel.addEventListener("click", function (e) {
+            // Find the closest element with the 'key' class that was clicked
+            const keyElement = e.target.closest(".key");
+            if (!keyElement) return; // Ignore clicks on panel background margins
 
-    // 2. Generic Keyboard Input Matrix (With Safety Checks)
-    virtualKeys.forEach(key => {
-        key.addEventListener("click", function () {
-            // Ignore operational controls explicitly
-            if (this.id === "clearBtn") return;
+            // 1. Handle Clear Action
+            if (keyElement.id === "clearBtn") {
+                messageInput.value = "";
+                outputMessage.textContent = "Your processed message output will appear here.";
+                outputMessage.classList.add("placeholder-text");
+                messageInput.focus();
+                return;
+            }
 
-            const keyChar = this.getAttribute("data-key");
-            
-            // CRITICAL FIX: Ensure keyChar isn't null or the literal string "null"
+            // 2. Handle Text Character Input Safely
+            const keyChar = keyElement.getAttribute("data-key");
             if (keyChar !== null && keyChar !== "null") {
                 messageInput.value += keyChar;
+                
+                // Fire an input event so your encryption engine updates automatically
                 messageInput.dispatchEvent(new Event('input', { bubbles: true }));
             }
         });
-    });
+    }
 
-    // 3. Mechanical Active States (Physical Keyboard Hooks)
+    // Mechanical Compression Animation (Physical Keyboard Sync)
     document.addEventListener("keydown", function (e) {
         let physicalKey = e.key.toUpperCase();
         if (physicalKey === " ") physicalKey = " ";
 
         const targetVirtualKey = document.querySelector(`.key[data-key="${physicalKey}"]`);
-        if (targetVirtualKey) {
-            targetVirtualKey.classList.add("pressed");
-        }
+        if (targetVirtualKey) targetVirtualKey.classList.add("pressed");
     });
 
     document.addEventListener("keyup", function (e) {
@@ -257,8 +248,6 @@ document.addEventListener("DOMContentLoaded", function () {
         if (physicalKey === " ") physicalKey = " ";
 
         const targetVirtualKey = document.querySelector(`.key[data-key="${physicalKey}"]`);
-        if (targetVirtualKey) {
-            targetVirtualKey.classList.remove("pressed");
-        }
+        if (targetVirtualKey) targetVirtualKey.classList.remove("pressed");
     });
 });
