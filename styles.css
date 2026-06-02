@@ -57,6 +57,9 @@ textarea, input[type="number"] {
 textarea {
     height: 100px;
     resize: vertical;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.1rem;
+    font-weight: bold;
 }
 
 textarea:focus, input:focus {
