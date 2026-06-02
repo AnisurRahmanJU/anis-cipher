@@ -202,17 +202,17 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // ==========================================================================
-// ANIS INTERACTIVE KEYBOARD SCRIPT - STABLE INTERACTION LAYER
+// ENIGMA INTERACTIVE KEYBOARD SCRIPT - STABLE INTERACTION LAYER (FIXED DUPLICATE)
 // ==========================================================================
 
 document.addEventListener("DOMContentLoaded", () => {
     const messageInput = document.getElementById("messageInput");
     const virtualKeys = document.querySelectorAll(".key");
 
-    // 1. Direct Target Interaction Router (Prevents Double Inputs Safely)
+    // ১. ডিরেক্ট ক্লিক হ্যান্ডলার (এটি ডাবল ক্যারেক্টার ইনপুট হওয়া সম্পূর্ণ বন্ধ করবে)
     virtualKeys.forEach(key => {
         key.onclick = (e) => {
-            // Kill any duplicate browser events from running downstream
+            // ব্রাউজারের অন্যান্য ফালতু বা ডাবল ইভেন্ট ট্রিগার হওয়া থামিয়ে দেবে
             if (e) {
                 e.preventDefault();
                 e.stopPropagation();
@@ -221,25 +221,25 @@ document.addEventListener("DOMContentLoaded", () => {
             const keyValue = key.getAttribute("data-key");
             
             if (keyValue === "CLEAR") {
-                // Wipe the input console clean
+                // কনসোল পুরো পরিষ্কার করবে
                 messageInput.value = "";
             } else if (keyValue === "BACKSPACE") {
-                // Drop the single final character 
+                // শেষের একটি ক্যারেক্টার মুছে ফেলবে
                 messageInput.value = messageInput.value.slice(0, -1);
             } else {
-                // Inject regular symbol asset or spacing unit
+                // শুধুমাত্র একটি ক্যারেক্টার বা স্পেস ইনপুট করবে
                 messageInput.value += keyValue;
             }
             
-            // Re-focus the workstation terminal box
+            // ইনপুট বক্সে ফোকাস ধরে রাখবে
             messageInput.focus();
             
-            // Let encryption processing functions know the text updated
+            // আপনার এনিক্রিপশন অ্যালগরিদমকে লাইভ আপডেট পাঠাবে
             messageInput.dispatchEvent(new Event('input'));
         };
     });
 
-    // 2. Physical Keyboard Visual Feedback Synchronization
+    // ২. ফিজিক্যাল কীবোর্ড অ্যানিমেশন সিঙ্ক (ঐচ্ছিক)
     document.addEventListener("keydown", (e) => {
         let pressedKey = e.key.toUpperCase();
         if (e.key === "Backspace") pressedKey = "BACKSPACE";
