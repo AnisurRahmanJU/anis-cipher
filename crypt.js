@@ -1,4 +1,8 @@
-
+/**
+ * crypt.js
+ * Full implementation of Consecutive Square Differences Cryptography
+ * Source Data: Md. Anisur Rahman & Dr. Salekul Islam (UIU)
+ */
 
 // Helper to convert character code to index (A=0, B=1... Z=25)
 function mapToNum(char) {
@@ -136,7 +140,20 @@ document.addEventListener("DOMContentLoaded", () => {
     decryptBtn.addEventListener("click", () => {
         let text = messageInput.value;
         let key = parseInt(keyInput.value);
-        outputMessage.textContent = decrypt(text, key);
+
+        // 1. Identify distinct encrypted words separated by the triple-space padding
+        let encryptedWords = text.split("   ");
+        let decryptedWords = [];
+
+        for (let word of encryptedWords) {
+            // 2. Pass each individual word token collection to your decrypt function
+            if (word.trim() !== "") {
+                decryptedWords.push(decrypt(word, key));
+            }
+        }
+
+        // 3. Output the fully recovered words combined with a clean standard single space
+        outputMessage.textContent = decryptedWords.join(" ");
         outputMessage.classList.remove("placeholder-text");
     });
 });
