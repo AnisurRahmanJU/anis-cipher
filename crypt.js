@@ -206,15 +206,59 @@ document.addEventListener("DOMContentLoaded", function () {
     const messageInput = document.getElementById("messageInput");
     const outputMessage = document.getElementById("outputMessage");
     const clearBtn = document.getElementById("clearBtn");
+    const virtualKeys = document.querySelectorAll(".key");
 
+    // 1. CLEAR Terminal Module
     if (clearBtn) {
-        clearBtn.addEventListener("click", function () {
-            // Clear the text area input
+        clearBtn.addEventListener("click", function (e) {
+            // Prevent the click event from bubbling up to other key listeners
+            e.stopPropagation();
+            
+            // Wipe data values cleanly
             messageInput.value = "";
             
-            // Reset the output area to its default placeholder state
+            // Revert output container states
             outputMessage.textContent = "Your processed message output will appear here.";
             outputMessage.classList.add("placeholder-text");
+            
+            messageInput.focus();
         });
     }
+
+    // 2. Generic Keyboard Input Matrix (With Safety Checks)
+    virtualKeys.forEach(key => {
+        key.addEventListener("click", function () {
+            // Ignore operational controls explicitly
+            if (this.id === "clearBtn") return;
+
+            const keyChar = this.getAttribute("data-key");
+            
+            // CRITICAL FIX: Ensure keyChar isn't null or the literal string "null"
+            if (keyChar !== null && keyChar !== "null") {
+                messageInput.value += keyChar;
+                messageInput.dispatchEvent(new Event('input', { bubbles: true }));
+            }
+        });
+    });
+
+    // 3. Mechanical Active States (Physical Keyboard Hooks)
+    document.addEventListener("keydown", function (e) {
+        let physicalKey = e.key.toUpperCase();
+        if (physicalKey === " ") physicalKey = " ";
+
+        const targetVirtualKey = document.querySelector(`.key[data-key="${physicalKey}"]`);
+        if (targetVirtualKey) {
+            targetVirtualKey.classList.add("pressed");
+        }
+    });
+
+    document.addEventListener("keyup", function (e) {
+        let physicalKey = e.key.toUpperCase();
+        if (physicalKey === " ") physicalKey = " ";
+
+        const targetVirtualKey = document.querySelector(`.key[data-key="${physicalKey}"]`);
+        if (targetVirtualKey) {
+            targetVirtualKey.classList.remove("pressed");
+        }
+    });
 });
