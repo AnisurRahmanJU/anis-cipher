@@ -1,7 +1,6 @@
 /**
- * crypt.js
  * Full implementation of Consecutive Square Differences Cryptography
- * Source Data: Md. Anisur Rahman & Dr. Salekul Islam (UIU)
+ * Source Data: Md. Anisur Rahman (UIU)
  */
 
 // Helper to convert character code to index (A=0, B=1... Z=25)
@@ -140,20 +139,64 @@ document.addEventListener("DOMContentLoaded", () => {
     decryptBtn.addEventListener("click", () => {
         let text = messageInput.value;
         let key = parseInt(keyInput.value);
-
-        // 1. Identify distinct encrypted words separated by the triple-space padding
-        let encryptedWords = text.split("   ");
-        let decryptedWords = [];
-
-        for (let word of encryptedWords) {
-            // 2. Pass each individual word token collection to your decrypt function
-            if (word.trim() !== "") {
-                decryptedWords.push(decrypt(word, key));
-            }
-        }
-
-        // 3. Output the fully recovered words combined with a clean standard single space
-        outputMessage.textContent = decryptedWords.join(" ");
+        outputMessage.textContent = decrypt(text, key);
         outputMessage.classList.remove("placeholder-text");
+    });
+});
+const textInput = document.getElementById('messageInput');
+
+textInput.addEventListener('keydown', (e) => {
+    const keyChar = e.key.toUpperCase();
+    const targetKey = document.querySelector(`.key[data-key="${keyChar}"]`);
+    if(targetKey) targetKey.classList.add('pressed');
+});
+
+textInput.addEventListener('keyup', (e) => {
+    const keyChar = e.key.toUpperCase();
+    const targetKey = document.querySelector(`.key[data-key="${keyChar}"]`);
+    if(targetKey) targetKey.classList.remove('pressed');
+});
+
+// ==========================================================================
+// ENIGMA INTERACTIVE KEYBOARD SCRIPT
+// ==========================================================================
+
+document.addEventListener("DOMContentLoaded", () => {
+    const messageInput = document.getElementById("messageInput");
+    const virtualKeys = document.querySelectorAll(".key");
+
+    // 1. Handle Virtual Keyboard Clicks
+    virtualKeys.forEach(key => {
+        key.addEventListener("click", () => {
+            const letter = key.getAttribute("data-key");
+            
+            // Append the letter to the textarea
+            messageInput.value += letter;
+            
+            // Force focus back to the textarea so the user sees the cursor
+            messageInput.focus();
+            
+            // Optional: Trigger input event if your encryption algorithm listens to live typing
+            messageInput.dispatchEvent(new Event('input'));
+        });
+    });
+
+    // 2. Handle Physical Keyboard Typing (Adds visual keypress animation)
+    document.addEventListener("keydown", (e) => {
+        const pressedKey = e.key.toUpperCase();
+        const targetVisualKey = document.querySelector(`.key[data-key="${pressedKey}"]`);
+        
+        if (targetVisualKey) {
+            targetVisualKey.classList.add("pressed");
+        }
+    });
+
+    document.addEventListener("keyup", (e) => {
+        const releasedKey = e.key.toUpperCase();
+        const targetVisualKey = document.querySelector(`.key[data-key="${releasedKey}"]`);
+        
+        if (targetVisualKey) {
+            targetVisualKey.classList.remove("pressed");
+        }
     });
 });
