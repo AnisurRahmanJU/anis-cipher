@@ -200,3 +200,21 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const messageInput = document.getElementById("messageInput");
+    const outputMessage = document.getElementById("outputMessage");
+    const clearBtn = document.getElementById("clearBtn");
+
+    if (clearBtn) {
+        clearBtn.addEventListener("click", function () {
+            // Clear the text area input
+            messageInput.value = "";
+            
+            // Reset the output area to its default placeholder state
+            outputMessage.textContent = "Your processed message output will appear here.";
+            outputMessage.classList.add("placeholder-text");
+        });
+    }
+});
