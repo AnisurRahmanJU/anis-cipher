@@ -200,3 +200,65 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
+
+// ==========================================================================
+// ANIS INTERACTIVE KEYBOARD SCRIPT - STABLE INTERACTION LAYER
+// ==========================================================================
+
+document.addEventListener("DOMContentLoaded", () => {
+    const messageInput = document.getElementById("messageInput");
+    const virtualKeys = document.querySelectorAll(".key");
+
+    // 1. Direct Target Interaction Router (Prevents Double Inputs Safely)
+    virtualKeys.forEach(key => {
+        key.onclick = (e) => {
+            // Kill any duplicate browser events from running downstream
+            if (e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+
+            const keyValue = key.getAttribute("data-key");
+            
+            if (keyValue === "CLEAR") {
+                // Wipe the input console clean
+                messageInput.value = "";
+            } else if (keyValue === "BACKSPACE") {
+                // Drop the single final character 
+                messageInput.value = messageInput.value.slice(0, -1);
+            } else {
+                // Inject regular symbol asset or spacing unit
+                messageInput.value += keyValue;
+            }
+            
+            // Re-focus the workstation terminal box
+            messageInput.focus();
+            
+            // Let encryption processing functions know the text updated
+            messageInput.dispatchEvent(new Event('input'));
+        };
+    });
+
+    // 2. Physical Keyboard Visual Feedback Synchronization
+    document.addEventListener("keydown", (e) => {
+        let pressedKey = e.key.toUpperCase();
+        if (e.key === "Backspace") pressedKey = "BACKSPACE";
+        if (e.key === "Escape") pressedKey = "CLEAR";
+        
+        const targetVisualKey = document.querySelector(`.key[data-key="${pressedKey}"]`);
+        if (targetVisualKey) {
+            targetVisualKey.classList.add("pressed");
+        }
+    });
+
+    document.addEventListener("keyup", (e) => {
+        let releasedKey = e.key.toUpperCase();
+        if (e.key === "Backspace") releasedKey = "BACKSPACE";
+        if (e.key === "Escape") releasedKey = "CLEAR";
+        
+        const targetVisualKey = document.querySelector(`.key[data-key="${releasedKey}"]`);
+        if (targetVisualKey) {
+            targetVisualKey.classList.remove("pressed");
+        }
+    });
+});
