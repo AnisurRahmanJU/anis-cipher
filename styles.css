@@ -180,7 +180,8 @@ textarea:focus { outline: none; }
     box-shadow: 0 4px 0 #090a0c, 0 6px 8px rgba(0, 0, 0, 0.6), inset 0 1px 2px rgba(255, 255, 255, 0.15);
     text-shadow: -1px -1px 0 #000;
     box-sizing: border-box;
-    transition: transform 0.05s ease, box-shadow 0.05s ease;
+    transition: transform 0.05s ease, box-shadow 0.05s ease, border-color 0.1s ease;
+    outline: none;
 }
 
 @media (min-width: 480px) {
@@ -190,11 +191,30 @@ textarea:focus { outline: none; }
     }
 }
 
+/* হোভার এবং ফোকাস অবস্থায় লাইমগ্রিন বর্ডার এবং উজ্জ্বল টেক্সট গ্লো */
+.key:hover, .key:focus {
+    outline: none;
+    border-radius: 50% !important;
+    border-color: #3df562 !important; /* Limegreen border */
+    color: #3df562;
+    text-shadow: 0 0 5px rgba(61, 245, 98, 0.8);
+    box-shadow: 0 4px 0 #090a0c, 0 6px 8px rgba(0, 0, 0, 0.6), 0 0 10px rgba(61, 245, 98, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.15);
+}
+
+@media (min-width: 480px) {
+    .key:hover, .key:focus {
+        box-shadow: 0 5px 0 #090a0c, 0 8px 10px rgba(0, 0, 0, 0.6), 0 0 12px rgba(61, 245, 98, 0.4), inset 0 1px 2px rgba(255, 255, 255, 0.15);
+    }
+}
+
 /* Red Backspace Modification */
 .key.delete-key {
     border-color: #8c3232;
     background: linear-gradient(180deg, #4c2222 0%, #260f0f 100%);
     color: #ff6b6b;
+}
+.key.delete-key:hover, .key.delete-key:focus {
+    border-color: #3df562 !important; /* হোভার করলে লাইমগ্রিন বর্ডার হবে */
 }
 
 /* Centered Double Operational Bar Configuration */
@@ -231,6 +251,13 @@ textarea:focus { outline: none; }
     text-shadow: 0 0 4px rgba(255, 0, 0, 0.4);
 }
 
+/* স্পেস এবং ক্লিয়ার বাটনের হোভার শেপ ক্যাপসুল যাতে বজায় থাকে */
+.key.space-key:hover, .key.space-key:focus,
+.key.clear-key:hover, .key.clear-key:focus {
+    border-radius: 6px !important;
+    border-color: #3df562 !important;
+}
+
 @media (min-width: 480px) {
     .key.space-key, .key.clear-key { height: 38px; font-size: 0.85rem; }
 }
@@ -239,11 +266,15 @@ textarea:focus { outline: none; }
 .key:active, .key.pressed {
     transform: translateY(3px);
     box-shadow: 0 1px 0 #090a0c, 0 2px 4px rgba(0, 0, 0, 0.7), inset 0 2px 4px rgba(0, 0, 0, 0.6);
+    border-radius: 50% !important;
+    outline: none;
+    border-color: #3df562 !important;
 }
 
 .key:active, .key.pressed { background: linear-gradient(180deg, #15181c 0%, #0d0f11 100%); }
-.key.delete-key:active, .key.delete-key.pressed { background: linear-gradient(180deg, #260f0f 0%, #150808 100%); }
-.key.clear-key:active, .key.clear-key.pressed { background: linear-gradient(180deg, #330b0b 0%, #1a0505 100%); }
+.key.delete-key:active, .key.delete-key.pressed { background: linear-gradient(180deg, #260f0f 0%, #150808 100%); border-radius: 50% !important; }
+.key.clear-key:active, .key.clear-key.pressed { background: linear-gradient(180deg, #330b0b 0%, #1a0505 100%); border-radius: 6px !important; }
+.key.space-key:active, .key.space-key.pressed { border-radius: 6px !important; }
 
 @media (min-width: 480px) {
     .key:active, .key.pressed {
