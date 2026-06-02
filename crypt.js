@@ -207,12 +207,15 @@ document.addEventListener("DOMContentLoaded", function () {
     const outputMessage = document.getElementById("outputMessage");
     const keyboardPanel = document.querySelector(".enigma-keyboard-panel");
 
-    // Unified Input & Control Handler using Event Delegation
     if (keyboardPanel) {
+        // Use 'true' for capturing phase to intercept the click before old code can run
         keyboardPanel.addEventListener("click", function (e) {
-            // Find the closest element with the 'key' class that was clicked
             const keyElement = e.target.closest(".key");
-            if (!keyElement) return; // Ignore clicks on panel background margins
+            if (!keyElement) return;
+
+            // Stop any other script in this file from reacting to this specific click
+            e.stopImmediatePropagation();
+            e.preventDefault();
 
             // 1. Handle Clear Action
             if (keyElement.id === "clearBtn") {
@@ -223,18 +226,18 @@ document.addEventListener("DOMContentLoaded", function () {
                 return;
             }
 
-            // 2. Handle Text Character Input Safely
+            // 2. Handle Character Input Safely (Fixes the "AA" duplicate bug)
             const keyChar = keyElement.getAttribute("data-key");
             if (keyChar !== null && keyChar !== "null") {
                 messageInput.value += keyChar;
                 
-                // Fire an input event so your encryption engine updates automatically
+                // Dispatches input event so your cipher logic processes the single letter
                 messageInput.dispatchEvent(new Event('input', { bubbles: true }));
             }
-        });
+        }, true); // The 'true' flag ensures this runs first and blocks duplicates
     }
 
-    // Mechanical Compression Animation (Physical Keyboard Sync)
+    // Mechanical Active Compression States (Physical Sync)
     document.addEventListener("keydown", function (e) {
         let physicalKey = e.key.toUpperCase();
         if (physicalKey === " ") physicalKey = " ";
