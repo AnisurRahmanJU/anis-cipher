@@ -71,8 +71,8 @@ h2 {
     word-break: break-word;
 }
 
-.subtitle a { color: white; text-decoration: none; }
-.subtitle a:hover { color: orange; }
+.subtitle a { color: orange; text-decoration: none; }
+.subtitle a:hover { color: white; }
 
 .form-group {
     margin-bottom: 20px;
