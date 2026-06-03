@@ -1,6 +1,9 @@
 /* ==========================================================================
    HYPER-REALISTIC ENIGMA CHASSIS & KEYBOARD - WITH BALANCED OPERATOR KEY
    ========================================================================== */
+html {
+   zoom: 125%;
+}
 
 body {
     font-family: 'Courier New', Courier, monospace;
