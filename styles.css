@@ -71,8 +71,8 @@ h2 {
     word-break: break-word;
 }
 
-.subtitle a { color: orange; text-decoration: none; }
-.subtitle a:hover { color: white; }
+.subtitle a { color: white; text-decoration: none; }
+.subtitle a:hover { color: orange; }
 
 .form-group {
     margin-bottom: 20px;
@@ -316,5 +316,5 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-app
 #outputMessage { word-wrap: break-word; white-space: pre-wrap; font-family: 'Courier New', Courier, monospace; font-size: 1.1rem; font-weight: 900; color: #dfa15a; text-shadow: 0 0 10px #dfa15a, 0 0 3px #bf616a; letter-spacing: 2px; }
 @media (min-width: 480px) { #outputMessage { font-size: 1.3rem; } }
 
-.placeholder-text { color: #1a1e24 !important; font-style: normal; text-transform: uppercase; text-shadow: none !important; font-size: 0.85rem !important; }
+.placeholder-text { color: orange !important; font-style: normal; text-transform: uppercase; text-shadow: none !important; font-size: 0.85rem !important; }
 @media (min-width: 480px) { .placeholder-text { font-size: 0.95rem !important; } }
