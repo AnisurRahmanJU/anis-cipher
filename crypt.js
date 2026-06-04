@@ -273,3 +273,93 @@ document.addEventListener("DOMContentLoaded", function () {
         if (targetVirtualKey) targetVirtualKey.classList.remove("pressed");
     });
 });
+
+
+// ==========================================================================
+// MOUSE DRAG & TOUCH SCREEN ROTOR WHEEL CONTROLLER
+// ==========================================================================
+document.addEventListener("DOMContentLoaded", () => {
+    const wheel = document.querySelector(".mechanical-wheel");
+    const keyInput = document.getElementById("keyInput");
+    
+    if (!wheel || !keyInput) return;
+
+    let isInteracting = false;
+    let startY = 0;
+    let startValue = 1;
+    
+    // Sync initial physical rotation with current state code matrix on load
+    let currentRotation = (parseInt(keyInput.value) * 15) % 360;
+    wheel.style.transform = `rotate(${currentRotation}deg)`;
+
+    // Common event function handler to calculate rotation matrix and key adjustments
+    function handleMove(clientY) {
+        if (!isInteracting) return;
+        const deltaY = startY - clientY;
+        const sensitivity = 8; // Pixels dragged per vertical unit change
+        const stepChange = Math.floor(deltaY / sensitivity);
+        
+        let newValue = startValue + stepChange;
+        if (newValue < 1) newValue = 1; // Structural boundary constraint
+
+        if (parseInt(keyInput.value) !== newValue) {
+            keyInput.value = newValue;
+            currentRotation = (newValue * 15) % 360;
+            wheel.style.transform = `rotate(${currentRotation}deg)`;
+            keyInput.dispatchEvent(new Event('input', { bubbles: true }));
+        }
+    }
+
+    // --- Desktop Mouse Tracking Interfaces ---
+    wheel.addEventListener("mousedown", (e) => {
+        isInteracting = true;
+        startY = e.clientY;
+        startValue = parseInt(keyInput.value) || 1;
+        wheel.style.cursor = "grabbing";
+    });
+
+    document.addEventListener("mousemove", (e) => {
+        if (isInteracting) handleMove(e.clientY);
+    });
+
+    document.addEventListener("mouseup", () => {
+        if (isInteracting) {
+            isInteracting = false;
+            wheel.style.cursor = "ns-resize";
+        }
+    });
+
+    // --- Mobile Touchscreen Tracking Interfaces ---
+    wheel.addEventListener("touchstart", (e) => {
+        isInteracting = true;
+        startY = e.touches[0].clientY;
+        startValue = parseInt(keyInput.value) || 1;
+    }, { passive: true });
+
+    document.addEventListener("touchmove", (e) => {
+        if (isInteracting) {
+            handleMove(e.touches[0].clientY);
+            // Prevent bounce scroll motions on mobile screens while handling the dial
+            if (e.cancelable) e.preventDefault(); 
+        }
+    }, { passive: false });
+
+    document.addEventListener("touchend", () => {
+        isInteracting = false;
+    });
+
+    // --- Desktop Native Scroll-Wheel Hooks ---
+    wheel.addEventListener("wheel", (e) => {
+        e.preventDefault();
+        let currentValue = parseInt(keyInput.value) || 1;
+        if (e.deltaY < 0) {
+            currentValue++;
+        } else {
+            if (currentValue > 1) currentValue--;
+        }
+        keyInput.value = currentValue;
+        currentRotation = (currentValue * 15) % 360;
+        wheel.style.transform = `rotate(${currentRotation}deg)`;
+        keyInput.dispatchEvent(new Event('input', { bubbles: true }));
+    }, { passive: false });
+});
