@@ -285,8 +285,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!wheel || !keyInput) return;
 
     let isInteracting = false;
-    let startY = 3;
-    let startValue = 3;
+    let startY = 0;
+    let startValue = 1;
     
     // Sync initial physical rotation with current state code matrix on load
     let currentRotation = (parseInt(keyInput.value) * 15) % 360;
