@@ -300,7 +300,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const stepChange = Math.floor(deltaY / sensitivity);
         
         let newValue = startValue + stepChange;
-        if (newValue < 1) newValue = 1; // Structural boundary constraint
+        if (newValue < 2) newValue = 2; // Structural boundary constraint
 
         if (parseInt(keyInput.value) !== newValue) {
             keyInput.value = newValue;
@@ -355,7 +355,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (e.deltaY < 0) {
             currentValue++;
         } else {
-            if (currentValue > 1) currentValue--;
+            if (currentValue > 2) currentValue--;
         }
         keyInput.value = currentValue;
         currentRotation = (currentValue * 15) % 360;
