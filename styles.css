@@ -10,7 +10,10 @@ h2{margin:0 0 12px;font-size:1.1rem;font-weight:900;text-transform:uppercase;let
 .subtitle a:hover{color:#fff}
 .form-group{margin-bottom:20px;background:#0f1115;padding:15px;border-radius:4px;border:2px solid;border-color:#060709 #1f242d #1f242d #060709;box-shadow:inset 0 5px 12px #000}
 label,.panel-tag{display:block;font-weight:700;font-size:.75rem;text-transform:uppercase;letter-spacing:2px;margin-bottom:10px;color:#555d6c;text-shadow:-1px -1px 0 #000}
-textarea{width:100%;height:95px;background:#06070a;border:1px solid #1a1e24;border-radius:2px;color:#3df562;padding:12px;font-size:1.1rem;font-weight:700;box-sizing:border-box;resize:none;font-family:inherit;box-shadow:inset 0 3px 8px #000;outline:none; overflow-x: auto; overflow-y: auto }
+
+/* Message Console Matrix Overflow Configuration */
+textarea{width:100%;height:95px;background:#06070a;border:1px solid #1a1e24;border-radius:2px;color:#3df562;padding:12px;font-size:1.1rem;font-weight:700;box-sizing:border-box;resize:none;font-family:inherit;box-shadow:inset 0 3px 8px #000;outline:none;overflow-y:auto;overflow-x:auto;white-space:pre}
+
 .enigma-keyboard-panel{background:#0a0b0d;padding:15px 8px;border-radius:8px;margin-bottom:25px;border:4px solid #1a1c22;box-shadow:inset 0 20px 40px #000,0 1px 0 rgba(255,255,255,.05);display:flex;flex-direction:column;gap:10px;box-sizing:border-box;width:100%}
 @media(min-width:480px){.enigma-keyboard-panel{padding:25px 15px;gap:14px}}
 .keyboard-row{display:flex;justify-content:space-between;align-items:center;gap:4px;width:100%;box-sizing:border-box}
@@ -51,7 +54,23 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
 .btn-decrypt:active{transform:translateY(4px);box-shadow:0 1px 0 #1f0b0b,0 3px 5px rgba(0,0,0,.5)}
 .output-box{background:#050608;border:2px solid;border-color:#020304 #1a1e24 #1a1e24 #020304;padding:20px;border-radius:3px;box-shadow:inset 0 0 20px #000}
 .output-box h3{margin:0 0 12px;font-size:.75rem;text-transform:uppercase;letter-spacing:2px;color:#4b5363;border-bottom:1px dashed #16191e;padding-bottom:6px}
-#outputMessage{word-wrap:break-word;white-space:pre-wrap;font-family:inherit;font-size:1.1rem;font-weight:900;color:#ff9f43;letter-spacing:2px; overflow-x: auto; overflow-y: auto}
+
+/* Encipherment Output Terminal Scrolling Interface */
+#outputMessage{word-wrap:normal;white-space:pre;font-family:inherit;font-size:1.1rem;font-weight:900;color:#ff9f43!important;letter-spacing:2px;overflow-y:auto;overflow-x:auto;max-height:120px;display:block;box-sizing:border-box}
 @media(min-width:480px){#outputMessage{font-size:1.3rem}}
-.placeholder-text{color:orange!important;text-transform:uppercase;font-size:.7rem!important}
+.placeholder-text{color:orange!important;text-transform:uppercase;font-size:.7rem!important;overflow:hidden!important}
 @media(min-width:480px){.placeholder-text{font-size:.95rem!important}}
+
+/* Action Utility Bar Components */
+.output-header-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;border-bottom:1px dashed #16191e;padding-bottom:6px}
+.btn-copy{background:linear-gradient(180deg,#1e2530,#0f1218);border:1.5px solid #333b4a;color:#8a96ad;font-family:inherit;font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:4px 10px;border-radius:4px;cursor:pointer;transition:all .15s}
+.btn-copy:hover{border-color:orange!important;color:orange!important;box-shadow:0 0 8px rgba(255,159,67,0.3)}
+#clearMessageBtn{border-color:#991b1b;color:#fca5a5}
+#clearMessageBtn:hover{border-color:#ef4444!important;color:#ef4444!important;box-shadow:0 0 8px rgba(239,68,68,0.3)}
+.btn-copy:active{transform:scale(.95);background:#050607}
+
+/* Hardware Themed Custom Mechanical Scrollbars */
+textarea::-webkit-scrollbar, #outputMessage::-webkit-scrollbar{width:6px;height:6px}
+textarea::-webkit-scrollbar-track, #outputMessage::-webkit-scrollbar-track{background:#050608;border-radius:3px}
+textarea::-webkit-scrollbar-thumb, #outputMessage::-webkit-scrollbar-thumb{background:#1e242d;border:1px solid #333b4a;border-radius:3px}
+textarea::-webkit-scrollbar-thumb:hover, #outputMessage::-webkit-scrollbar-thumb:hover{background:orange}
