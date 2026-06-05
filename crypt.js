@@ -33,8 +33,7 @@ function encrypt(plaintext, key) {
         // Preserve spaces and special characters seamlessly
         if (char < 'A' || char > 'Z') {
             if (char === ' ') {
-                // শব্দের মাঝের খালি স্পেসকে ডাবল স্পেস ট্র্যাকিংয়ের জন্য একটি অতিরিক্ত স্পেস হিসেবে রাখা হলো
-                // join(" ") করার পর এটি নিখুঁত ব্ল্যাংক স্পেস হিসেবেই আউটপুট দেবে
+            
                 tokens.push(""); 
             } else {
                 tokens.push(char);
