@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -89,10 +90,19 @@
             <button id="decryptBtn" class="btn btn-decrypt">Decrypt</button>
         </div>
 
-        <div class="output-box">
-            <h3><b>Encipherment Output:</b></h3>
-            <div id="outputMessage" class="placeholder-text">Processed message output here</div>
-        </div>
+    <div class="output-box">
+    <div class="output-header">
+        <h3><b>Encipherment Output:</b></h3>
+
+        <button id="copyBtn" class="copy-btn" title="Copy Output">
+            <i class="fa fa-copy">Copy</i>
+        </button>
+    </div>
+
+    <div id="outputMessage" class="placeholder-text">
+        Processed message output here
+    </div>
+  </div>
         <br>
         <p class="subtitle" >
            <a  href="https://github.com/AnisurRahmanJU/anis-cipher" target="_blank">
