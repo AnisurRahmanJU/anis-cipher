@@ -74,3 +74,8 @@ textarea::-webkit-scrollbar, #outputMessage::-webkit-scrollbar{width:6px;height:
 textarea::-webkit-scrollbar-track, #outputMessage::-webkit-scrollbar-track{background:#050608;border-radius:3px}
 textarea::-webkit-scrollbar-thumb, #outputMessage::-webkit-scrollbar-thumb{background:#1e242d;border:1px solid #333b4a;border-radius:3px}
 textarea::-webkit-scrollbar-thumb:hover, #outputMessage::-webkit-scrollbar-thumb:hover{background:orange}
+
+.output-header{display:flex;justify-content:space-between;align-items:center;}
+.copy-btn{margin-left:auto;display:flex;align-items:center;gap:6px;padding:4px 8px;background:#111;border:1px solid #333;border-radius:4px; color:#8a96ad; cursor:pointer; transition:.2s;}
+.copy-btn:hover{color:orange;border-color:orange;}
+.copy-btn.copied{color:orange; border-color:orange;}
