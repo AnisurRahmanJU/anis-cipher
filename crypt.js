@@ -70,7 +70,7 @@ function encrypt(plaintext, key) {
             tokens.push(valChar + DELIMITER + powerString);
         }
     }
-    // শুধুমাত্র সাধারণ সিঙ্গেল ব্ল্যাংক স্পেস দিয়ে টোকেনগুলো যুক্ত হবে
+    
     return tokens.join(" ");
 }
 
@@ -81,7 +81,7 @@ function encrypt(plaintext, key) {
 function decrypt(ciphertext, key) {
     if (!ciphertext || isNaN(key) || key <= 0) return "Please enter valid text and a positive key.";
     
-    // সাইফারটেক্সটকে সিঙ্গেল স্পেস দিয়ে আলাদা করা হচ্ছে
+
     let tokens = ciphertext.split(" ");
     let recoveredText = "";
     let isPrevSpace = false;
@@ -89,7 +89,7 @@ function decrypt(ciphertext, key) {
     for (let i = 0; i < tokens.length; i++) {
         let token = tokens[i];
 
-        // যদি টোকেনটি খালি হয় (ডাবল স্পেসের কারণে), তার মানে এটি শব্দের মাঝের ফাকা স্পেস
+        
         if (token === "") {
             if (!isPrevSpace) {
                 recoveredText += " ";
