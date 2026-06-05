@@ -239,7 +239,7 @@ document.addEventListener("DOMContentLoaded", function () {
             // 1. Handle Clear Action
             if (keyElement.id === "clearBtn") {
                 messageInput.value = "";
-                outputMessage.textContent = "Your processed message output will appear here.";
+                outputMessage.textContent = "";
                 outputMessage.classList.add("placeholder-text");
                 messageInput.focus();
                 return;
@@ -376,11 +376,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const textToCopy = outputMessage.textContent.trim();
 
-        if (
-            !textToCopy ||
-            textToCopy === "Processed message output here" ||
-            textToCopy === "Your processed message output will appear here."
-        ) {
+        if (!textToCopy) 
+        {
             return;
         }
 
