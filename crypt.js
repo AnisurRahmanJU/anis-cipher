@@ -362,4 +362,46 @@ document.addEventListener("DOMContentLoaded", () => {
         wheel.style.transform = `rotate(${currentRotation}deg)`;
         keyInput.dispatchEvent(new Event('input', { bubbles: true }));
     }, { passive: false });
+    
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const copyBtn = document.getElementById("copyBtn");
+    const outputMessage = document.getElementById("outputMessage");
+
+    if (!copyBtn || !outputMessage) return;
+
+    copyBtn.addEventListener("click", async () => {
+
+        const textToCopy = outputMessage.textContent.trim();
+
+        if (
+            !textToCopy ||
+            textToCopy === "Processed message output here" ||
+            textToCopy === "Your processed message output will appear here."
+        ) {
+            return;
+        }
+
+        try {
+            await navigator.clipboard.writeText(textToCopy);
+
+            alert("Successfully copied");
+
+        } catch (err) {
+
+            // fallback copy
+            const tempArea = document.createElement("textarea");
+            tempArea.value = textToCopy;
+            document.body.appendChild(tempArea);
+
+            tempArea.select();
+            document.execCommand("copy");
+
+            document.body.removeChild(tempArea);
+
+            alert("Successfully copied");
+        }
+    });
 });
